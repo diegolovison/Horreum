@@ -12,47 +12,7 @@
 ---
 ## What is Horreum?
 
-Horreum is a service for storing performance data and regression analysis.
-
-Please, visit our project website: 
-
-[https://horreum.hyperfoil.io](https://horreum.hyperfoil.io)
-
-for more information.
-
-Horreum is a [Quarkus](https://quarkus.io/) based application which uses
-[Quinoa](https://quarkiverse.github.io/quarkiverse-docs/quarkus-quinoa/dev/) as its [nodejs](https://nodejs.org/en) engine.
-
-## Prerequisites
-
-* [Java 17](https://adoptium.net/temurin/releases/?version=17)
-* [Apache Maven 3.8](https://maven.apache.org/)
-* [Docker](https://www.docker.com/)
-
-## Getting Started with development server
-
-To run with test cases do
-
-```bash
-mvn install
-mvn quarkus:dev -pl 'horreum-backend'
-```
-
-To run without test cases do
-
-```bash
-mvn -DskipTests=true -DskipITs install
-mvn -Dquarkus.test.continuous-testing=disabled quarkus:dev -pl 'horreum-backend'
-```
-
-## Credentials
-
-Horreum is running on [localhost:8080](http://localhost:8080)
-
-| Role | Name | Password |
-| ---- | ---- | -------- |
-| User | `horreum.bootstrap` | `secret` |
-
+[Horreum](https://horreum.hyperfoil.io) is a web-based platform for storing, managing and visualizing the results of your performance experiment. It provides a user-friendly interface for monitoring the experiments, as well as for analyzing and visualizing the results. It also provides an automated way to detect performance anomaly. Horreum is designed to be scalable and can handle large amount of data, making it a popular choice for tracking performance regressions.
 
 ## Tested platforms
 
@@ -64,9 +24,9 @@ Horreum is running on [localhost:8080](http://localhost:8080)
 
 The [Horreum operator](https://github.com/Hyperfoil/horreum-operator) can help to setup a production environment.
 
-## 🧑‍💻 Contributing
+## Contributing
 
-Contributions to `Horreum` Please check our [CONTRIBUTING.md](./CONTRIBUTING.md)
+Please check the [CONTRIBUTING.md](./CONTRIBUTING.md)
 
 ### If you have any idea or doubt 👇
 
@@ -82,6 +42,12 @@ community.
 
 Consider giving the project a [star](https://github.com/Hyperfoil/Horreum/stargazers) on
 [GitHub](https://github.com/Hyperfoil/Horreum/) if you find it useful.
+
+## Development Process
+Please check the [DEVELOPMENT.md](./docs/DEVELOPMENT.md)
+
+## Release
+Please check the [RELEASE.md](./docs/RELEASE.md)
 
 ## License
 
