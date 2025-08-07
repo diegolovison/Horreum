@@ -22,6 +22,8 @@ import java.util.concurrent.TimeUnit;
 import java.util.function.Consumer;
 import java.util.stream.StreamSupport;
 
+import io.hyperfoil.tools.horreum.entity.ActionLogDAO;
+import io.hyperfoil.tools.horreum.entity.PersistentLogDAO;
 import jakarta.ws.rs.core.HttpHeaders;
 import jakarta.ws.rs.core.MediaType;
 
@@ -678,6 +680,11 @@ public class RunServiceTest extends BaseServiceTest {
     @org.junit.jupiter.api.Test
     public void testRecalculateDatasets() throws InterruptedException {
         withExampleDataset(createTest(createExampleTest("dummy")), JsonNodeFactory.instance.objectNode(), ds -> {
+            String fakeEndpoint = "http://localhost:99998";
+            addAllowedSite(fakeEndpoint);
+            Test testWithId = new Test();
+            testWithId.id = ds.testid;
+            addTestHttpAction(testWithId, ActionEvent.DATASET_LABELS_COMPUTED, fakeEndpoint);
             Util.withTx(tm, () -> {
                 try (CloseMe ignored = roleManager.withRoles(SYSTEM_ROLES)) {
                     DatasetDAO dbDs = DatasetDAO.findById(ds.id);
@@ -702,6 +709,12 @@ public class RunServiceTest extends BaseServiceTest {
                 assertEquals(1, dataSets.size());
                 assertEquals(dsIds2.get(0), dataSets.get(0).id);
             }
+
+            // the call to "http://localhost:99998" will fail because there is no endpoint available
+            // there are 2 calls to recalculateDatasetForRun
+            long count = ActionLogDAO.find("testId = ?1 AND level = ?2 AND event = ?3",
+                    ds.testid, PersistentLogDAO.ERROR, ActionEvent.DATASET_LABELS_COMPUTED.name()).count();
+            assertEquals(2, count);
             return null;
         });
     }
